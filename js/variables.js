@@ -1,4 +1,4 @@
-alert("Bienvenido al Juego. Tenes 5 intentos para adivinar el nombre de pila (Solo el nombre, sin apellido y sin acentos) de un famoso. Te voy a ir dando pistas");
+alert("Bienvenido al Juego. Tenes 5 intentos para adivinar el nombre de pila (Solo el nombre, sin apellido y sin acento) de un famoso. Te voy a ir dando pistas");
 let personaje = "martin";
 const oportunidades = 5;
 
