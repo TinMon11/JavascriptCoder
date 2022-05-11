@@ -4,7 +4,7 @@ let user = prompt("Ingrese su nombre");
 
 alert(`Bienvenido ${user} a tu billetera virtual`);
 
-let saldo = 0;
+let saldoinicial = 0;
 let option = 1;
 
 while (option !== 4) {
@@ -14,47 +14,18 @@ while (option !== 4) {
 /*Si elige Agregar Saldo se consulta cuanto agregar, vemos si es un number, agregarmos al saldo y mostramos por pantalla*/
 
   if (option === 1) {
-    let monto = Number(prompt("Qué monto desea agregar:"));
-    
-    if (!isNaN(monto)) {
-
-    saldo = saldo + monto;
-    alert(`Se agregaron ${monto} a tu billetera. \n Tu nuevo saldo es ${saldo} `);
-    }
-
-    else {
-        alert("No ingresaste un numero")
-    }
-
+   agregarSaldo(saldoinicial)
   } 
 
  /*Si elige Retirar Saldo se consulta cuanto retira, vemos si es un number, restamos al saldo y mostramos por pantalla*/ 
   
   else if (option === 2) {
-    let monto = Number(prompt("Qué monto desea retirar:"));
-
-    if (!isNaN(monto)) {
-
-    if (monto > saldo) {
-      alert(`Tu saldo actual es ${saldo}. No puedes retirar ${monto} ya que no tienes fondos suficientes`);
-    } 
-  
-    else {
-      saldo = saldo - monto;
-      alert(`Se retiraron ${monto} de tu billetera. \n Tu nuevo saldo es ${saldo} `);
-    }
-
-    }
-
-    else {
-        alert("No ingresaste un numero")
-    }
-
+      restarSaldo(saldoinicial)
 } 
 
 
   else if (option === 3) {
-    alert(`Tu saldo actual es ${saldo} `);
+    alert(`Tu saldo actual es ${saldoinicial} `);
 }
 
   else {
@@ -62,3 +33,33 @@ while (option !== 4) {
     break;
   }
 }
+
+function agregarSaldo(saldo) {
+  let montoingresado = Number(prompt("Cuanto dinero ingresas:"));
+
+  if (!isNaN(montoingresado)) {
+      saldo = saldoinicial + montoingresado;
+      alert(`Se agregaron ${montoingresado} a tu billetera. \n Tu nuevo saldo es ${saldo} `);
+      saldoinicial = saldo;
+  } else {
+      alert("No ingresaste un numero")
+  } 
+}
+
+function restarSaldo(saldo) {
+  let montoingresado = Number(prompt("Qué monto desea retirar:"));
+
+  if (!isNaN(montoingresado)) {
+
+      if (montoingresado > saldo) {
+        alert(`Tu saldo actual es ${saldo}. \n No puedes retirar ${montoingresado} ya que no tienes fondos suficientes`);
+      }  else {
+        saldo = saldo - montoingresado;
+        alert(`Se retiraron ${montoingresado} de tu billetera. \n Tu nuevo saldo es ${saldo} `);
+        saldoinicial = saldo;
+      }
+  } else {
+      alert("No ingresaste un numero")
+  }
+}
+
