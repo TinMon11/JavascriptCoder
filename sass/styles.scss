@@ -75,12 +75,16 @@ html, body {
       }
 
       &__balance {
+          width: 80%;
+          align-self: center;
+          border-radius: 10px;
           font-size: 4em;
           font-weight: 600;
 
           p {
               font-size: 2em;
               background-color: white;
+              border-radius: 15px;
               color: black;
               font-weight: 400;
           }

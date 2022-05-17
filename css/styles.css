@@ -55,11 +55,15 @@ a {
   .card__logo img {
     width: 70%; }
   .card__balance {
+    width: 80%;
+    align-self: center;
+    border-radius: 10px;
     font-size: 4em;
     font-weight: 600; }
     .card__balance p {
       font-size: 2em;
       background-color: white;
+      border-radius: 15px;
       color: black;
       font-weight: 400; }
   .card__options {
