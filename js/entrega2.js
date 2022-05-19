@@ -2,7 +2,7 @@ let user = prompt("Ingrese su nombre");
 
 alert(`Bienvenido ${user} a tu billetera virtual`);
 
-let saldo = 0;
+let saldo = 1700; /*1700 es el saldo con los registros iniciales agregados manualmente en las siguientes lineas*/
 
 /*En el siguiente array (array de objetos) se van agregando las operaciones, con un id, tipo de operacion, monto, y saldo luego de esa operacion*/
 
@@ -18,7 +18,15 @@ class Registro {
      }
   }
 
-const arrayRegistros = [];
+/*Defino movimientos iniciales para no tener el array vacio cada vez que se inicia*/
+
+const mov1 = new Registro ("25-05-2022 20:00", "Deposito", 100, 1000, 1000)
+const mov2 = new Registro ("25-05-2022 20:20", "Deposito", 101, 2000, 3000)
+const mov3 = new Registro ("26-05-2022 15:20", "Retiro", 200, 500, 2500)
+const mov4 = new Registro ("26-05-2022 16:20", "Retiro", 201, 800, 1700)
+
+const arrayRegistros = [mov1,mov2,mov3,mov4];
+
 
 mostrarMenu()
 
