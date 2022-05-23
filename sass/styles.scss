@@ -59,10 +59,10 @@ html, body {
       flex-direction: column;
       justify-content: space-around;
       text-align: center;
-      border: 4px white solid;
+      border: 1px white solid;
       border-radius: 10px;
       height: 700px;
-      width: 400px;
+      width: 450px;
       box-shadow: 10px 10px 5px #2d4078;
 
       &__title {
@@ -71,11 +71,11 @@ html, body {
       }
 
       &__logo img {
-          width: 70%;
+          width: 50%;
       }
 
       &__balance {
-          width: 80%;
+          width: 70%;
           align-self: center;
           border-radius: 10px;
           font-size: 4em;
@@ -100,9 +100,9 @@ html, body {
         button {
             margin: 4px 2px 4px 2px;
             padding: 4px;
-            font-size: 3.5em;
+            font-size: 3em;
             background-color: white;
-            border: #506ec7 solid 2px;
+            border: #506ec7 solid 1px;
             border-radius: 10px;
         }
       }
