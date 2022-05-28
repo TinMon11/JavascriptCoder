@@ -13,7 +13,10 @@
   @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap');
 
   $font-primary: 'Roboto', sans-serif; 
-$backgroundColor: #3b4f8c;
+  $backgroundColor: #101749;
+  $secondcolor : #2a3964;
+  $buttoncolor: #3071E7;
+  $supportcolor: #a6b2ec;
 
 
 /*Globals*/
@@ -43,8 +46,7 @@ html, body {
 /*Styles */
 .homepage {
     min-height: 100vh;
-    background-color: #3b4f8c;
-    background-image: url(../images/background.png);
+    background-color: $backgroundColor;
     background-repeat: no-repeat;
     background-size: 100% 100%;
     display: flex;
@@ -64,7 +66,7 @@ html, body {
       border-radius: 25px;
       height: 120px;
       width: 1080px;
-      box-shadow: 10px 10px 5px #2d4078;
+      box-shadow: 10px 10px 5px $secondcolor;
 
       &__title {
           font-size: 5em;
@@ -76,6 +78,7 @@ html, body {
       }
 
       &__balance {
+          
           width: 200px;
           text-align: center;
           font-size: 2.5em;
@@ -86,7 +89,7 @@ html, body {
               margin-top: 5px;
               background-color: white;
               border-radius: 30px;
-              color: black;
+              color: $buttoncolor;
               font-weight: 800;
           }
       }
@@ -111,15 +114,38 @@ html, body {
             width: 200px;
             padding: 4px;
             font-size: 3em;
-            background-color: white;
-            border: #506ec7 solid 1px;
+            background-color: $buttoncolor;
+            border: $secondcolor solid 1px;
             border-radius: 25px;
+            color: white;
         }
       }
   }
 
+.login {
+
+  margin-top: 50px;
+  font-size: 2.5em;
+  text-align: center;
+
+  p {
+    margin: 15px;
+    font-size: 1.2em;
+  }
+
+  input {
+    font-size: 1.2em;
+  }
+
+  &__button {
+    margin-top: 10px;
+  }
+
+
+}
+
+
   button:hover {
-    background-color: #506ec7;
     border-color: white;
     color: white;
   }
@@ -138,13 +164,13 @@ table {
   font-size: 1.4em;
   text-align: center;
   border:1px solid rgb(255, 255, 255);
-  box-shadow: 10px 10px 5px #2d4078;
+  box-shadow: 10px 10px 5px $secondcolor;
 }
 
 
 tr:nth-child(even){
   background-color: white;
-  color:#2d4078;
+  color:$secondcolor;
 }
 
 th{

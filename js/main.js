@@ -26,16 +26,23 @@ const arrayRegistros = [mov1,mov2,mov3,mov4,mov5, mov6];
 
 let saldo = 2200; /*2200 es el saldo con los registros iniciales agregados manualmente en las siguientes lineas*/
 
+let saldoTotal = document.getElementById("saldo")
+saldoTotal.innerHTML =  "$ " + saldo;
+
 /*Tomo los botones del panel para interactuar luego con DOM*/ 
 
+let user = document.getElementById("userName")
 let agregarDinero = document.getElementById("addMoneyButton")
 let restarDinero = document.getElementById("withdrawMoneyButton")
 let buscarFactura = document.getElementById("searchButton")
 let listado = document.getElementById("viewTransactions")
-let saldoTotal = document.getElementById("saldo")
 let botonSalida = document.getElementById("exitButton")
 
-saldoTotal.innerHTML = "$ " + saldo;
+/*Tomo del almacenamiento el nombre de usuario para escribirlo en el titulo de la pagina*/
+
+let usuario = localStorage.getItem("Username")
+userName.innerHTML = usuario
+localStorage.clear()
 
 /*Declaracion de funciones basicas*/
 
@@ -53,7 +60,6 @@ function sumarMonto () {
     montoIngresado.value =""
     }
 
-    
 function restarMonto () {
     let montoIngresado = document.getElementById("withdrawMoney");
     monto = Number(montoIngresado.value);
@@ -71,8 +77,8 @@ function restarMonto () {
     }
 
 
-
 /*Interaccion con DOM*/
+
 
 agregarDinero.onclick = ()=>{
     sumarMonto()
@@ -97,6 +103,8 @@ listado.onclick = () => {
 botonSalida.onclick = () => {
     hideTransactions();
 }
+
+
 
 
 /*Muestra el listado de REGISTROS del sistema*/
@@ -187,3 +195,4 @@ function agregarRegistro(operacion, monto, saldo) {
     let nuevoRegistro = new Registro(fecha, operacion,factura, monto,saldo);
     arrayRegistros.unshift(nuevoRegistro);
 }
+

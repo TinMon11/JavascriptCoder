@@ -13,7 +13,7 @@ html, body {
   font-family: "Roboto", sans-serif;
   color: white;
   font-size: 62.5%;
-  background-color: #3b4f8c;
+  background-color: #101749;
   margin: 0px;
   min-height: 100vh; }
 
@@ -29,8 +29,7 @@ a {
 /*Styles */
 .homepage {
   min-height: 100vh;
-  background-color: #3b4f8c;
-  background-image: url(../images/background.png);
+  background-color: #101749;
   background-repeat: no-repeat;
   background-size: 100% 100%;
   display: flex;
@@ -49,7 +48,7 @@ a {
   border-radius: 25px;
   height: 120px;
   width: 1080px;
-  box-shadow: 10px 10px 5px #2d4078; }
+  box-shadow: 10px 10px 5px #2a3964; }
   .card__title {
     font-size: 5em;
     font-weight: 900; }
@@ -65,7 +64,7 @@ a {
       margin-top: 5px;
       background-color: white;
       border-radius: 30px;
-      color: black;
+      color: #3071E7;
       font-weight: 800; }
   .card__options {
     display: flex;
@@ -82,12 +81,24 @@ a {
       width: 200px;
       padding: 4px;
       font-size: 3em;
-      background-color: white;
-      border: #506ec7 solid 1px;
-      border-radius: 25px; }
+      background-color: #3071E7;
+      border: #2a3964 solid 1px;
+      border-radius: 25px;
+      color: white; }
+
+.login {
+  margin-top: 50px;
+  font-size: 2.5em;
+  text-align: center; }
+  .login p {
+    margin: 15px;
+    font-size: 1.2em; }
+  .login input {
+    font-size: 1.2em; }
+  .login__button {
+    margin-top: 10px; }
 
 button:hover {
-  background-color: #506ec7;
   border-color: white;
   color: white; }
 
@@ -104,11 +115,11 @@ table {
   font-size: 1.4em;
   text-align: center;
   border: 1px solid white;
-  box-shadow: 10px 10px 5px #2d4078; }
+  box-shadow: 10px 10px 5px #2a3964; }
 
 tr:nth-child(even) {
   background-color: white;
-  color: #2d4078; }
+  color: #2a3964; }
 
 th {
   padding: 2%;

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/styles.css">
+    <script defer src="./js/main.js"></script>
+    <title>Test Wallet</title>
+</head>
+<body class="homepage">
+    <section class="card">
+        <div class="card__title">
+                <h1 class="card__title__text"> <span id="userName"></span> WALLET</h1>
+        </div>
+        <div class="card__logo">
+            <img src="./images/logo.svg.svg" alt="" class="card__logo__img">
+        </div>
+        <div class="card__balance">
+            <h2 class="card__balance__title">BALANCE</h2>
+            <p id = "saldo"></p>
+        </div>
+    </section>
+        
+    <section class="card__options">
+        <div><button class="card__options__buttons" id="addMoneyButton">Add Money</button><input type="number" name="addValue" id="addValue"></div>
+        <div><button class="card__options__buttons" id="withdrawMoneyButton">Withdraw Money</button><input type="number" name="withdrawMoney" id="withdrawMoney"></div>
+        <div><button class="card__options__buttons" id="searchButton">Search Invoice</button><input type="number" name="invoiceNumber" id="invoiceNumber"></div>
+        <button class="card__options__buttons" id="viewTransactions">View Transactions</button>
+        <button class="card__options__buttons" id="exitButton">Hide Transactions</button>
+    </section>
+
+    <section class="TransactionsList"></section>
+
+</body>
+</html>
