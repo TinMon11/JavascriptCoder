@@ -11,7 +11,7 @@ function login ()
 
     if (password.value === "1234")  {
         let nombreusuario = (user.value)
-        window.location="index.html"
+        window.location="wallet.html"
 
     /*Guardo nombre de usuario en LocalStorage para tomarlo luego en el otro HTML/JS */
         localStorage.setItem("Username",nombreusuario)
