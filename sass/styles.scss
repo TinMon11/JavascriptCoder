@@ -107,20 +107,48 @@ html, body {
           align-items: center;
           text-align: center;
         }
-
-
-        button {
-            margin: 15px 2px 15px 2px;
-            width: 200px;
-            padding: 4px;
-            font-size: 3em;
-            background-color: $buttoncolor;
-            border: $secondcolor solid 1px;
-            border-radius: 25px;
-            color: white;
-        }
       }
-  }
+
+     &__mensajes {
+       height: 80px;
+       width: 600px;
+       color:$supportcolor;
+       text-align: center;
+       display: inline-grid;
+       place-content: center;
+       font-size: 2.5em;
+     } 
+
+     &__invoice {
+       display:none;
+       flex-direction: row;
+       justify-content: center;
+       align-content: space-between;
+
+      label {
+        font-size: 3.2em;
+        margin-left: 25px;
+      }
+
+      &__form {
+        margin: auto;
+      }
+
+      }
+  }  
+
+
+.card__options__buttons {
+    margin: 15px 2px 15px 2px;
+    width: 200px;
+    padding: 4px;
+    font-size: 3em;
+    background-color: $buttoncolor;
+    border: $secondcolor solid 1px;
+    border-radius: 25px;
+    color: white;
+}
+
 
 .login {
 
@@ -141,7 +169,6 @@ html, body {
     margin-top: 10px;
   }
 
-
 }
 
 
@@ -153,7 +180,7 @@ html, body {
   input {
     font-size: 2.5em;
     height: 30px;
-    width: 120px;
+    size: 20;
     text-align: center;
     background-color: white;
     border-radius: 5px;
@@ -184,4 +211,10 @@ td{
   padding: 1%;
   text-align: center;
   font-size: 1.5em;
+}
+
+input::placeholder {
+  color: $supportcolor;
+  font-size: 1em;
+  font-style: italic;
 }

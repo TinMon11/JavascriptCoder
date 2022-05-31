@@ -23,11 +23,23 @@
     </section>
         
     <section class="card__options">
-        <div><button class="card__options__buttons" id="addMoneyButton">Add Money</button><input type="number" name="addValue" id="addValue"></div>
-        <div><button class="card__options__buttons" id="withdrawMoneyButton">Withdraw Money</button><input type="number" name="withdrawMoney" id="withdrawMoney"></div>
-        <div><button class="card__options__buttons" id="searchButton">Search Invoice</button><input type="number" name="invoiceNumber" id="invoiceNumber"></div>
+        <button class="card__options__buttons" id="addMoneyButton">Add Money</button>
+        <button class="card__options__buttons" id="withdrawMoneyButton">Withdraw Money</button>
+        <div><button class="card__options__buttons" id="searchButton">Search Invoice</button><input type="number" name="invoiceNumber" id="invoiceNumber" placeholder="Invoice N°"></div>
         <button class="card__options__buttons" id="viewTransactions">View Transactions</button>
         <button class="card__options__buttons" id="exitButton">Hide Transactions</button>
+    </section>
+
+    <section class="card__mensajes" id="mensajes"></section>
+    <section class="card__invoice" id="invoiceNumberForm">
+        <div class = "card__invoice__form">
+            <label for="Add/Witdraw" id = "operacion">Deposito</label>
+            <label for="amount">Amount</label>
+            <input type="number" name="amount" id="amount" placeholder="Insert Amount">
+            <label for="invNumber">Invoice</label>
+            <input type="number" name="invNumber" id="invNumber" placeholder="Insert Invoice N°">
+        </div>
+        <button class="card__options__buttons" id="submitButton">Submit</button>
     </section>
 
     <section class="TransactionsList"></section>

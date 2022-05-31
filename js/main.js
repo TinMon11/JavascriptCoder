@@ -15,12 +15,12 @@ class Registro {
 
 /*Defino movimientos iniciales para no tener el array vacio cada vez que se inicia*/
 
-const mov1 = new Registro ("25-05-2022 20:00", "Deposito", 100, 1000, 1000)
-const mov2 = new Registro ("25-05-2022 20:20", "Deposito", 101, 2000, 3000)
-const mov3 = new Registro ("26-05-2022 15:20", "Retiro", 200, 500, 2500)
-const mov4 = new Registro ("26-05-2022 16:20", "Retiro", 201, 800, 1700)
-const mov5 = new Registro ("26-05-2022 17:20", "Retiro", 202, 300, 1400)
-const mov6 = new Registro ("27-05-2022 13:08", "Deposito", 102, 800, 2200)
+const mov1 = new Registro ("25-05-2022 20:00", "Add", 100, 1000, 1000)
+const mov2 = new Registro ("25-05-2022 20:20", "Add", 101, 2000, 3000)
+const mov3 = new Registro ("26-05-2022 15:20", "Withdraw", 200, 500, 2500)
+const mov4 = new Registro ("26-05-2022 16:20", "Withdraw", 201, 800, 1700)
+const mov5 = new Registro ("26-05-2022 17:20", "Withdraw", 202, 300, 1400)
+const mov6 = new Registro ("27-05-2022 13:08", "Add", 102, 800, 2200)
 
 const arrayRegistros = [mov1,mov2,mov3,mov4,mov5, mov6];
 
@@ -34,9 +34,13 @@ saldoTotal.innerHTML =  "$ " + saldo;
 let user = document.getElementById("userName")
 let agregarDinero = document.getElementById("addMoneyButton")
 let restarDinero = document.getElementById("withdrawMoneyButton")
+let tipoOperacion = document.getElementById("operacion")
+let submit = document.getElementById("submitButton")
 let buscarFactura = document.getElementById("searchButton")
 let listado = document.getElementById("viewTransactions")
 let botonSalida = document.getElementById("exitButton")
+let seccionMensajes = document.getElementById("mensajes")
+let seccionInvoice = document.getElementById("invoiceNumberForm")
 
 /*Tomo del almacenamiento el nombre de usuario para escribirlo en el titulo de la pagina*/
 
@@ -46,62 +50,88 @@ localStorage.clear()
 
 /*Declaracion de funciones basicas*/
 
-function sumarMonto () {
-    let montoIngresado = document.getElementById("addValue");
-    monto = Number(montoIngresado.value)
-    if (monto > 0) {
-        saldo = saldo + monto;
-        saldoTotal.innerHTML =  "$ " + saldo;
-        agregarRegistro("Deposito",monto,saldo);
-    } else {
-        alert("Monto Ingresado No Válido. Debe ser mayor a 0")
-    }
+function modificarMonto (monto,fc) {
     
-    montoIngresado.value =""
-    }
+    let tipo = tipoOperacion.innerHTML
 
-function restarMonto () {
-    let montoIngresado = document.getElementById("withdrawMoney");
-    monto = Number(montoIngresado.value);
-        if (monto > saldo ) {
-            alert(`Tu saldo actual es ${saldo}. \n No puedes retirar ${monto} ya que no tienes fondos suficientes.`);
-        }  else if (monto < 0) {
-            alert("Monto Ingresado No Válido. Debe ser mayor a 0")
-        } else {
+    if (monto >0) {
+
+        if (tipo === "Withdraw") {
+
+            if (monto > saldo) {
+                seccionMensajes.innerHTML = `Insufficient funds on your Wallet to Witdhraw $ ${monto}`
+            } else {
+
             saldo = saldo - monto;
             saldoTotal.innerHTML =  "$ " + saldo;
-            agregarRegistro("Retiro",monto,saldo);
+            agregarRegistro(tipo,monto,fc,saldo);
+            seccionMensajes.innerHTML = "Done! Money Withdrew from your account."
+            seccionInvoice.style.display = "none"
+            listarRegistros(arrayRegistros)
+            }
         }
-        
-        montoIngresado.value =""
+
+        if (tipo === "Add Money") {
+            saldo = saldo + monto;
+            saldoTotal.innerHTML =  "$ " + saldo;
+            agregarRegistro(tipo,monto,fc,saldo);
+            seccionMensajes.innerHTML = "Done! Money added to your account." 
+            seccionInvoice.style.display = "none"
+            listarRegistros(arrayRegistros)
+        }
+
+            montoIngresado.value =""
+
+    } else {
+        seccionMensajes.innerHTML = "Invalid amount. Please enter a number > 0"
     }
+
+}
 
 
 /*Interaccion con DOM*/
 
 
 agregarDinero.onclick = ()=>{
-    sumarMonto()
-    listarRegistros(arrayRegistros);
+    seccionInvoice.style.display = "flex"
+    tipoOperacion.innerHTML = "Add Money"
     }
 
 restarDinero.onclick = ()=>{
-    restarMonto()
-    listarRegistros(arrayRegistros);
+        seccionInvoice.style.display = "flex"
+        tipoOperacion.innerHTML = "Withdraw"
     }
+
+submit.onclick = ()=> {
+    let amount = document.getElementById("amount");
+    monto = Number(amount.value);
+    let factura = document.getElementById("invNumber");
+    fc = Number(factura.value);
+    amount.value = "";
+    factura.value="";
+    modificarMonto(monto,fc);
+    
+}
+
 
 buscarFactura.onclick = ()=> {
+    seccionInvoice.style.display = "none"
     let filtrado = filtrarFactura()
+    if (filtrado.length > 0) {
     listarRegistros(filtrado)
-    }
-
+    } else {seccionMensajes.innerHTML = "Invoice Number doesn't exist"}
+}
 
 listado.onclick = () => {
+    seccionInvoice.style.display = "none"
     listarRegistros(arrayRegistros);
+    seccionMensajes.innerHTML = ""
 }
 
 botonSalida.onclick = () => {
+    seccionInvoice.style.display = "none"
     hideTransactions();
+    seccionMensajes.innerHTML = ""
 }
 
 
@@ -177,7 +207,7 @@ function listarRegistros(listadoRegistros)
 
 function filtrarFactura () {
     let buscada = document.getElementById("invoiceNumber");
-    numeroFactura = Number(buscada.value)
+    numeroFactura = Number(buscada.value);
     let facturaBuscada = arrayRegistros.filter ((fc) => fc.factura === numeroFactura);
     buscada.value = "";
     return facturaBuscada;
@@ -188,11 +218,10 @@ function hideTransactions() {
     miLista.innerHTML="";
 }
 
-function agregarRegistro(operacion, monto, saldo) {
+function agregarRegistro(operacion, monto, factura, saldo) {
     let hoy = new Date();
     let fecha = hoy.getDate() + '-' + ( hoy.getMonth() + 1 ) + '-' + hoy.getFullYear() + ' ' + hoy.getHours() + ':' + hoy.getMinutes();
-    let factura = Number(prompt("Ingrese Numero de Factura:"));
-    let nuevoRegistro = new Registro(fecha, operacion,factura, monto,saldo);
+    let nuevoRegistro = new Registro(fecha, operacion, factura, monto, saldo);
     arrayRegistros.unshift(nuevoRegistro);
 }
 

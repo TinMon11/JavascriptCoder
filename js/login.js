@@ -1,4 +1,5 @@
 let loginbutton = document.getElementById("loginbutton")
+let loginMessage = document.getElementById("loginMessage")
 
 loginbutton.onclick = ()=> {
 login()
@@ -11,13 +12,13 @@ function login ()
 
     if (password.value === "1234")  {
         let nombreusuario = (user.value)
-        window.location="wallet.html"
+        window.location ="wallet.html"
 
     /*Guardo nombre de usuario en LocalStorage para tomarlo luego en el otro HTML/JS */
         localStorage.setItem("Username",nombreusuario)
 
     } else {
         password = "";
-        alert (`Contraseña Incorrecta para el usuario ${user.value}`);
+        loginMessage.innerHTML =`Contraseña Incorrecta para el usuario ${user.value}`
     }
 }
