@@ -15,6 +15,7 @@ class Registro {
 
 /*Defino movimientos iniciales para no tener el array vacio cada vez que se inicia*/
 
+
 const mov1 = new Registro ("25-05-2022 20:00", "Add", 100, 1000, 1000)
 const mov2 = new Registro ("25-05-2022 20:20", "Add", 101, 2000, 3000)
 const mov3 = new Registro ("26-05-2022 15:20", "Withdraw", 200, 500, 2500)
@@ -22,7 +23,12 @@ const mov4 = new Registro ("26-05-2022 16:20", "Withdraw", 201, 800, 1700)
 const mov5 = new Registro ("26-05-2022 17:20", "Withdraw", 202, 300, 1400)
 const mov6 = new Registro ("27-05-2022 13:08", "Add", 102, 800, 2200)
 
-const arrayRegistros = [mov1,mov2,mov3,mov4,mov5, mov6];
+let arrayRegistros = [mov6,mov5,mov4,mov3,mov2, mov1];
+
+/*Guardo en memoria el array inicial*/
+localStorage.setItem("Registros",JSON.stringify(arrayRegistros));
+arrayRegistros = JSON.parse(localStorage.getItem("Registros"))
+
 
 let saldo = 2200; /*2200 es el saldo con los registros iniciales agregados manualmente en las siguientes lineas*/
 
@@ -34,25 +40,28 @@ saldoTotal.innerHTML =  "$ " + saldo;
 let user = document.getElementById("userName")
 let agregarDinero = document.getElementById("addMoneyButton")
 let restarDinero = document.getElementById("withdrawMoneyButton")
-let tipoOperacion = document.getElementById("operacion")
-let submit = document.getElementById("submitButton")
 let buscarFactura = document.getElementById("searchButton")
 let listado = document.getElementById("viewTransactions")
 let botonSalida = document.getElementById("exitButton")
+
+let tipoOperacion = document.getElementById("operacion")
+let submit = document.getElementById("submitButton")
 let seccionMensajes = document.getElementById("mensajes")
 let seccionInvoice = document.getElementById("invoiceNumberForm")
 
-/*Tomo del almacenamiento el nombre de usuario para escribirlo en el titulo de la pagina*/
+/*Tomo del almacenamiento local el nombre de usuario para escribirlo en el titulo de la pagina*/
 
 let usuario = localStorage.getItem("Username")
 userName.innerHTML = usuario
 localStorage.clear()
 
 /*Declaracion de funciones basicas*/
+/*Funcion para modificar el saldo, es unica, para sumar o restar depende de lo que haya selecc el usuario*/
 
 function modificarMonto (monto,fc) {
     
     let tipo = tipoOperacion.innerHTML
+    let amount = document.getElementById("amount");
 
     if (monto >0) {
 
@@ -67,7 +76,7 @@ function modificarMonto (monto,fc) {
             agregarRegistro(tipo,monto,fc,saldo);
             seccionMensajes.innerHTML = "Done! Money Withdrew from your account."
             seccionInvoice.style.display = "none"
-            listarRegistros(arrayRegistros)
+            listarRegistros(JSON.parse(localStorage.getItem("Registros")));
             }
         }
 
@@ -77,10 +86,11 @@ function modificarMonto (monto,fc) {
             agregarRegistro(tipo,monto,fc,saldo);
             seccionMensajes.innerHTML = "Done! Money added to your account." 
             seccionInvoice.style.display = "none"
-            listarRegistros(arrayRegistros)
+            listarRegistros(JSON.parse(localStorage.getItem("Registros")));
         }
 
-            montoIngresado.value =""
+            amount.value =""
+            localStorage.setItem("Registros",JSON.stringify(arrayRegistros))
 
     } else {
         seccionMensajes.innerHTML = "Invalid amount. Please enter a number > 0"
@@ -102,6 +112,8 @@ restarDinero.onclick = ()=>{
         tipoOperacion.innerHTML = "Withdraw"
     }
 
+/*DOM cuando se despliega la seccion de agregar o restar dinero*/
+
 submit.onclick = ()=> {
     let amount = document.getElementById("amount");
     monto = Number(amount.value);
@@ -116,6 +128,7 @@ submit.onclick = ()=> {
 
 buscarFactura.onclick = ()=> {
     seccionInvoice.style.display = "none"
+    seccionMensajes.innerHTML = ""
     let filtrado = filtrarFactura()
     if (filtrado.length > 0) {
     listarRegistros(filtrado)
@@ -123,9 +136,9 @@ buscarFactura.onclick = ()=> {
 }
 
 listado.onclick = () => {
-    seccionInvoice.style.display = "none"
+    seccionInvoice.style.display = "none";
     listarRegistros(arrayRegistros);
-    seccionMensajes.innerHTML = ""
+    seccionMensajes.innerHTML = "";
 }
 
 botonSalida.onclick = () => {
@@ -133,7 +146,6 @@ botonSalida.onclick = () => {
     hideTransactions();
     seccionMensajes.innerHTML = ""
 }
-
 
 
 
@@ -223,5 +235,5 @@ function agregarRegistro(operacion, monto, factura, saldo) {
     let fecha = hoy.getDate() + '-' + ( hoy.getMonth() + 1 ) + '-' + hoy.getFullYear() + ' ' + hoy.getHours() + ':' + hoy.getMinutes();
     let nuevoRegistro = new Registro(fecha, operacion, factura, monto, saldo);
     arrayRegistros.unshift(nuevoRegistro);
+    localStorage.setItem('Registros',JSON.stringify(arrayRegistros))
 }
-
