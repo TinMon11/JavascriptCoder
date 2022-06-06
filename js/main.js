@@ -30,7 +30,7 @@ localStorage.setItem("Registros",JSON.stringify(arrayRegistros));
 arrayRegistros = JSON.parse(localStorage.getItem("Registros"))
 
 
-let saldo = 2200; /*2200 es el saldo con los registros iniciales agregados manualmente en las siguientes lineas*/
+let saldo = 2205; /*2200 es el saldo con los registros iniciales agregados manualmente en las siguientes lineas*/
 
 let saldoTotal = document.getElementById("saldo")
 saldoTotal.innerHTML =  "$ " + saldo;
