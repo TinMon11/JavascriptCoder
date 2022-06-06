@@ -21,7 +21,7 @@ const mov2 = new Registro ("25-05-2022 20:20", "Add", 101, 2000, 3000)
 const mov3 = new Registro ("26-05-2022 15:20", "Withdraw", 200, 500, 2500)
 const mov4 = new Registro ("26-05-2022 16:20", "Withdraw", 201, 800, 1700)
 const mov5 = new Registro ("26-05-2022 17:20", "Withdraw", 202, 300, 1400)
-const mov6 = new Registro ("27-05-2022 13:08", "Add", 102, 800, 2200)
+const mov6 = new Registro ("27-05-2022 13:08", "Add", 102, 805, 2205)
 
 let arrayRegistros = [mov6,mov5,mov4,mov3,mov2, mov1];
 
@@ -63,21 +63,23 @@ function modificarMonto (monto,fc) {
     let tipo = tipoOperacion.innerHTML
     let amount = document.getElementById("amount");
 
-    if (monto >0) {
+    if (monto > 0) {
 
         if (tipo === "Withdraw") {
 
-            if (monto > saldo) {
-                seccionMensajes.innerHTML = `Insufficient funds on your Wallet to Witdhraw $ ${monto}`
-            } else {
+            monto > saldo &&  (seccionMensajes.innerHTML = `Insufficient funds on your Wallet to Witdhraw $ ${monto}`)
 
+            
+            if (monto < saldo) {
+            /*Operador Ternario*/    
+            monto > MaxRetirado(arrayRegistros) ? seccionMensajes.innerHTML = "This is your bigget amount Withdrew" : seccionMensajes.innerHTML = "Done! Money Withdrew from your account."
             saldo = saldo - monto;
             saldoTotal.innerHTML =  "$ " + saldo;
             agregarRegistro(tipo,monto,fc,saldo);
-            seccionMensajes.innerHTML = "Done! Money Withdrew from your account."
             seccionInvoice.style.display = "none"
             listarRegistros(JSON.parse(localStorage.getItem("Registros")));
             }
+
         }
 
         if (tipo === "Add Money") {
@@ -130,9 +132,8 @@ buscarFactura.onclick = ()=> {
     seccionInvoice.style.display = "none"
     seccionMensajes.innerHTML = ""
     let filtrado = filtrarFactura()
-    if (filtrado.length > 0) {
-    listarRegistros(filtrado)
-    } else {seccionMensajes.innerHTML = "Invoice Number doesn't exist"}
+    /*Uso de operador Ternario*/
+    filtrado.length > 0 ?  listarRegistros(filtrado) : seccionMensajes.innerHTML = "Invoice Number doesn't exist"
 }
 
 listado.onclick = () => {
@@ -237,3 +238,21 @@ function agregarRegistro(operacion, monto, factura, saldo) {
     arrayRegistros.unshift(nuevoRegistro);
     localStorage.setItem('Registros',JSON.stringify(arrayRegistros))
 }
+
+/*En la siguiente funcion filtro solo los retiros de Dinero. luego con un Spread operator y Math.Max veo cual fue el mayor monto retirado*/
+
+function MaxRetirado (arrayRegistros) {
+
+    let arrayFiltrado = arrayRegistros.filter ((tipo) => tipo.tipo === "Withdraw");
+    let arrayRetiros = [];
+
+    arrayFiltrado.forEach((registro) => {
+    arrayRetiros.unshift(registro.monto)
+    })
+    
+
+    /*Uso spread para desarmar el array y ver luego el maximo retirado*/
+    let maximoRetirado = Math.max(...arrayRetiros);
+    return maximoRetirado;
+}
+
