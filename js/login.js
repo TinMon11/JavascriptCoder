@@ -3,7 +3,6 @@ let loginMessage = document.getElementById("loginMessage")
 
 loginbutton.onclick = ()=> {
 login()
-
 }
 
 function login () 
@@ -24,6 +23,17 @@ function login ()
     /*Uso de operador AND*/
         
     password.value !== "1234" && (password.value = "")
-    password.value !== "1234" && (loginMessage.innerHTML =`Contraseña Incorrecta para el usuario ${user.value}`)
+    password.value !== "1234" && (errorPassword())
+
+}
+
+function errorPassword () {
+
+    Swal.fire({
+        title:'Contraseña Incorrecta',
+        text:'Para entrar la contraseña es 1234 :) Solo de Prueba para el proyecto',
+        icon: 'warning',
+        confirmButtonText: 'Retry',
+    })
 
 }
