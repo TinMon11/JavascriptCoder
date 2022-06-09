@@ -53,7 +53,6 @@ let seccionInvoice = document.getElementById("invoiceNumberForm")
 
 let usuario = localStorage.getItem("Username")
 userName.innerHTML = usuario
-localStorage.clear()
 
 /*Declaracion de funciones basicas*/
 /*Funcion para modificar el saldo, es unica, para sumar o restar depende de lo que haya selecc el usuario*/
@@ -69,15 +68,15 @@ function modificarMonto (monto,fc) {
 
             monto > saldo &&  (seccionMensajes.innerHTML = `Insufficient funds on your Wallet to Witdhraw $ ${monto}`)
 
-            
             if (monto < saldo) {
             /*Operador Ternario*/    
-            monto > MaxRetirado(arrayRegistros) ? seccionMensajes.innerHTML = "This is your bigget amount Withdrew" : seccionMensajes.innerHTML = "Done! Money Withdrew from your account."
+            monto > MaxRetirado(arrayRegistros) ? movimientoExtraño () : seccionMensajes.innerHTML = "Done! Money Withdrew from your account."
             saldo = saldo - monto;
             saldoTotal.innerHTML =  "$ " + saldo;
             agregarRegistro(tipo,monto,fc,saldo);
             seccionInvoice.style.display = "none"
             listarRegistros(JSON.parse(localStorage.getItem("Registros")));
+            notificacion();
             }
 
         }
@@ -89,13 +88,16 @@ function modificarMonto (monto,fc) {
             seccionMensajes.innerHTML = "Done! Money added to your account." 
             seccionInvoice.style.display = "none"
             listarRegistros(JSON.parse(localStorage.getItem("Registros")));
+            notificacion();
         }
 
             amount.value =""
             localStorage.setItem("Registros",JSON.stringify(arrayRegistros))
 
-    } else {
-        seccionMensajes.innerHTML = "Invalid amount. Please enter a number > 0"
+        } 
+    
+    else {
+        notificacionError ()
     }
 
 }
@@ -124,7 +126,6 @@ submit.onclick = ()=> {
     amount.value = "";
     factura.value="";
     modificarMonto(monto,fc);
-    
 }
 
 
@@ -256,3 +257,36 @@ function MaxRetirado (arrayRegistros) {
     return maximoRetirado;
 }
 
+/*Funcion para mostrar notificacion cuando el movimiento es correcto. Uso libreria Toastify*/
+
+function notificacion() {
+    Toastify({
+        text: '¡Succesfull operation!', 
+        className: 'toastPopUp',
+        duration: 2500,
+        gravity: 'bottom', // `top` or `bottom`
+        position: 'center', // `left`, `center` or `right`
+        style: {
+            background: '#3071E7',
+        }
+    }).showToast();
+}
+
+
+function notificacionError () { 
+    Swal.fire({
+        title:'Invalid Movement',
+        text:'Please Enter a Number Bigger than 0',
+        icon: 'error',
+        confirmButtonText: 'Retry',
+    })
+}
+
+function movimientoExtraño () { 
+    Swal.fire({
+        title:'Biggest Withdrew Amount',
+        text:'¡Attention! This is your biggest amount withdrew',
+        icon: 'warning',
+        confirmButtonText: 'OK',
+    })
+}

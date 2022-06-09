@@ -155,3 +155,7 @@ input::placeholder {
   color: #a6b2ec;
   font-size: 1em;
   font-style: italic; }
+
+.toastPopUp {
+  font-size: 2.4em !important;
+  border-radius: 50px !important; }
