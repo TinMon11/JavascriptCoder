@@ -20,14 +20,19 @@
             <img src="./images/logo.svg.svg" alt="" class="card__logo__img">
         </div>
         <div class="card__balance">
-            <h2 class="card__balance__title">BALANCE</h2>
+            <h2 class="card__balance__title">BALANCE AR$</h2>
             <p id = "saldo"></p>
+        </div>
+        <div class="card__balance">
+            <h2 class="card__balance__title">BALANCE USDT</h2>
+            <p id = "saldoUsdt"></p>
         </div>
     </section>
         
     <section class="card__options">
         <button class="card__options__buttons" id="addMoneyButton">Add Money</button>
         <button class="card__options__buttons" id="withdrawMoneyButton">Withdraw Money</button>
+        <button class="card__options__buttons" id="USDTButton">Buy/Sell USDT</button>
         <div><button class="card__options__buttons" id="searchButton">Search Invoice</button><input type="number" name="invoiceNumber" id="invoiceNumber" placeholder="Invoice N°"></div>
         <button class="card__options__buttons" id="viewTransactions">View Transactions</button>
         <button class="card__options__buttons" id="exitButton">Hide Transactions</button>
@@ -44,7 +49,8 @@
         </div>
         <button class="card__options__buttons" id="submitButton">Submit</button>
     </section>
-
+    <section id="sectionUSDT">
+    </section>
     <section class="TransactionsList"></section>
 
 </body>

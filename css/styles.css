@@ -77,6 +77,7 @@ a {
       align-items: center;
       text-align: center; }
   .card__mensajes {
+    padding-top: 25px;
     height: 80px;
     width: 600px;
     color: #a6b2ec;
@@ -104,6 +105,9 @@ a {
   border: #2a3964 solid 1px;
   border-radius: 25px;
   color: white; }
+
+.sectionUSDT {
+  display: none; }
 
 .login {
   margin-top: 50px;
@@ -144,7 +148,7 @@ th {
   padding: 2%;
   font-size: 1.8em;
   font-weight: 800;
-  width: 200px; }
+  width: 150px; }
 
 td {
   padding: 1%;

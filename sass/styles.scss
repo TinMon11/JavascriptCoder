@@ -78,7 +78,6 @@ html, body {
       }
 
       &__balance {
-          
           width: 200px;
           text-align: center;
           font-size: 2.5em;
@@ -110,6 +109,7 @@ html, body {
       }
 
      &__mensajes {
+        padding-top: 25px;
        height: 80px;
        width: 600px;
        color:$supportcolor;
@@ -149,6 +149,10 @@ html, body {
     color: white;
 }
 
+
+.sectionUSDT {
+  display: none;
+}
 
 .login {
 
@@ -204,7 +208,7 @@ th{
   padding: 2%;
   font-size: 1.8em;
   font-weight: 800;
-  width:200px;
+  width:150px;
 }
 
 td{
