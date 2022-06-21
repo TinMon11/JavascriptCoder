@@ -1,46 +1,20 @@
 
-/*En el siguiente array (array de objetos) se van agregando las operaciones, con un id, tipo de operacion, monto, y saldo luego de esa operacion*/
+arrayRegistros = JSON.parse(localStorage.getItem("Registros"));
+console.log(arrayRegistros)
 
-class Registro {
-  
-    constructor (fecha, tipo,factura, monto,saldo, montoUSDT, saldoUsdt)
-     { 
-      this.fecha = fecha 
-      this.tipo = tipo;
-      this.factura = factura;
-      this.monto = monto;
-      this.saldo = saldo;
-      this.montoUSDT = montoUSDT;
-      this.saldoUsdt = saldoUsdt
-     }
-  }
+let saldo = 0;
+let saldoUSDT = 0;
 
-/*Defino movimientos iniciales para no tener el array vacio cada vez que se inicia*/
-
-
-const mov1 = new Registro ("25-05-2022 20:00", "Add", 100, 1000, 1000,0,500)
-const mov2 = new Registro ("25-05-2022 20:20", "Add", 101, 2000, 3000,0,500)
-const mov3 = new Registro ("26-05-2022 15:20", "Withdraw", 200, 500, 2500,0,500)
-const mov4 = new Registro ("26-05-2022 16:20", "Withdraw", 201, 800, 1700,0,500)
-const mov5 = new Registro ("26-05-2022 17:20", "Withdraw", 202, 300, 1400,0,500)
-const mov6 = new Registro ("27-05-2022 13:08", "Add", 102, 805, 2205,0,500)
-
-let arrayRegistros = [mov6,mov5,mov4,mov3,mov2, mov1];
-
-/*Guardo en memoria el array inicial*/
-localStorage.setItem("Registros",JSON.stringify(arrayRegistros));
-arrayRegistros = JSON.parse(localStorage.getItem("Registros"))
-
-
-let saldo = 2205; /*2200 es el saldo con los registros iniciales agregados manualmente en las siguientes lineas*/
-let saldoUSDT = 500;
-
+if (arrayRegistros.length > 1) {
+    saldoUSDT = (arrayRegistros[0].saldoUsdt)
+    saldo = (arrayRegistros[0].saldo)
+} 
 
 let saldoTotal = document.getElementById("saldo")
-saldoTotal.innerHTML =  "$ " + saldo.toFixed(2);;
+saldoTotal.innerHTML =  "$ " + saldo;
 
 let saldoTotalUSDT = document.getElementById("saldoUsdt")
-saldoTotalUSDT.innerHTML =  "$ " + saldoUSDT;
+saldoTotalUSDT.innerHTML =  "USDT " + saldoUSDT;
 
 /*Tomo los botones del panel para interactuar luego con DOM*/ 
 
@@ -83,7 +57,7 @@ function modificarMonto (monto,fc) {
             saldoTotal.innerHTML =  "$ " + saldo.toFixed(2);;
             agregarRegistro(tipo,monto,fc,saldo.toFixed(2),0,saldoUSDT);
             seccionInvoice.style.display = "none"
-            listarRegistros(JSON.parse(localStorage.getItem("Registros")));
+            listarRegistros(arrayRegistros);
             notificacion();
             }
 
@@ -95,12 +69,10 @@ function modificarMonto (monto,fc) {
             agregarRegistro(tipo,monto,fc,saldo.toFixed(2),0,saldoUSDT);
             seccionMensajes.innerHTML = "Done! Money added to your account." 
             seccionInvoice.style.display = "none"
-            listarRegistros(JSON.parse(localStorage.getItem("Registros")));
+            listarRegistros(arrayRegistros);
             notificacion();
         }
-
             amount.value =""
-            localStorage.setItem("Registros",JSON.stringify(arrayRegistros))
 
         } 
     
@@ -132,7 +104,6 @@ buttonUSDT.onclick = ()=>{
     sectionUSDT.innerHTML = ""
     seccionMensajes.innerHTML = ""
     seccionInvoice.style.display = "none"
-    console.log("Boton TOmado USDT")
     mostrarModuloUSDT()
     }
 
@@ -220,6 +191,8 @@ function listarRegistros(listadoRegistros)
 
    miLista.appendChild(encabezado);
 
+   if (listadoRegistros.length > 0) {
+
    listadoRegistros.forEach((registro)=>{
        const nodotr = document.createElement("tr");
        let nodotd = document.createElement("td");
@@ -253,6 +226,8 @@ function listarRegistros(listadoRegistros)
        miLista.appendChild(nodotr);
        }); 
 
+    }
+
     document.body.appendChild(miLista);
 
 }
@@ -276,7 +251,6 @@ function agregarRegistro(operacion, monto, factura, saldo, montoUSDT, saldoUSDT)
     let fecha = hoy.getDate() + '-' + ( hoy.getMonth() + 1 ) + '-' + hoy.getFullYear() + ' ' + hoy.getHours() + ':' + hoy.getMinutes();
     let nuevoRegistro = new Registro(fecha, operacion, factura, monto, saldo, montoUSDT, saldoUSDT);
     arrayRegistros.unshift(nuevoRegistro);
-    localStorage.setItem('Registros',JSON.stringify(arrayRegistros))
 }
 
 /*En la siguiente funcion filtro solo los retiros de Dinero. luego con un Spread operator y Math.Max veo cual fue el mayor monto retirado*/
@@ -380,12 +354,7 @@ async function compraVentaUSDT (tipo,cotizacion) {
 
     seccionMensajes.innerHTML = `You are going to ${tipo} USDT - Current Price AR$ ${cotizacion}`
 
-    let  compravende = tipo
-    console.log(compravende)
-
-
-    console.log(compravende,cotizacion)
-     if (compravende == "buy") 
+     if (tipo == "buy") 
      {
          const { value: cantidad } = await Swal.fire({
                  input: 'number',
@@ -400,18 +369,14 @@ async function compraVentaUSDT (tipo,cotizacion) {
                 let arsNecesarios = cantidad * cotizacion
                 arsNecesarios > saldo && (seccionMensajes.innerHTML = `Insufficient funds on your Wallet to buy ${cantidad} USDT `)
 
-                console.log(saldo)
-                console.log(saldoUSDT)
-
-
                 if (arsNecesarios < saldo)
                     {
                         saldo = saldo - arsNecesarios
                         saldoUSDT = Number((saldoUSDT + Number(cantidad)).toFixed(2))
                         saldoTotal.innerHTML =  "$ " + saldo.toFixed(2);
-                        saldoTotalUSDT.innerHTML =  "$ " + saldoUSDT;
+                        saldoTotalUSDT.innerHTML =  "USDT " + saldoUSDT;
                         agregarRegistro("BuyUSDT", arsNecesarios, "-", saldo.toFixed(2),cantidad, saldoUSDT)
-                        listarRegistros(JSON.parse(localStorage.getItem("Registros")));
+                        listarRegistros(arrayRegistros);
                         notificacion();
                     }
 
@@ -419,7 +384,7 @@ async function compraVentaUSDT (tipo,cotizacion) {
     }      
 
 
-         if (compravende == "sell") 
+         if (tipo == "sell") 
          {
              const { value: cantidad } = await Swal.fire({
                      input: 'number',
@@ -440,9 +405,9 @@ async function compraVentaUSDT (tipo,cotizacion) {
                             saldo = saldo + arsRecibidos
                             saldoUSDT = saldoUSDT - cantidad
                             saldoTotal.innerHTML =  "$ " + saldo.toFixed(2);
-                            saldoTotalUSDT.innerHTML =  "$ " + saldoUSDT;
+                            saldoTotalUSDT.innerHTML =  "USDT " + saldoUSDT;
                             agregarRegistro("SellUSDT", arsRecibidos.toFixed(2), "-", saldo.toFixed(2), cantidad, saldoUSDT)
-                            listarRegistros(JSON.parse(localStorage.getItem("Registros")));
+                            listarRegistros(arrayRegistros);
                             notificacion();
                         }
     

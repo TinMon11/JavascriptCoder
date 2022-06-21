@@ -118,8 +118,13 @@ a {
     font-size: 1.2em; }
   .login input {
     font-size: 1.2em; }
-  .login__button {
-    margin-top: 10px; }
+  .login__button button {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #3071E7;
+    border: #2a3964;
+    font-size: 1em;
+    border-radius: 24px; }
 
 button:hover {
   border-color: white;
@@ -163,3 +168,7 @@ input::placeholder {
 .toastPopUp {
   font-size: 2.4em !important;
   border-radius: 50px !important; }
+
+#loginMessage {
+  padding: 15px;
+  margin: 10px; }
