@@ -57,7 +57,7 @@ async function nuevoUsuario () {
 
     const { value: nombreUsuario } = await Swal.fire({
         input: 'text',
-        inputLabel: `Ingrese Nombre de Usuario`,
+        inputLabel: `Type Username`,
         inputPlaceholder: 'Your text here',
         showCancelButton: true,
         inputValidator: (value) => {
@@ -69,28 +69,25 @@ async function nuevoUsuario () {
 
       const { value: passwordUsuario } = await Swal.fire({
         input: 'text',
-        inputLabel: `Ingrese Nombre de Usuario`,
+        inputLabel: `Type your password`,
         inputPlaceholder: 'Your text here',
         showCancelButton: true,
 
         inputValidator: (value) => {
             if (!value) {
               return 'You need to set up a password!'
-            } else {
-
-                Swal.fire({
-                    title:'NEW USER CREATED',
-                    text:'You Can Login with your new user',
-                    icon: 'success',
-                    confirmButtonText: 'OK',
-                })
-            }
-          }
-
-      })
-
-    let nuevoUsuario = new Usuario (nombreUsuario, passwordUsuario, [])
-    arrayUsuarios.push(nuevoUsuario)
+            } 
+           }
+          })
+         
+          Swal.fire({
+            title:'NEW USER CREATED',
+            text:'You Can Login with your new user',
+            icon: 'success',
+            confirmButtonText: 'OK', })
+          
+        let nuevoUsuario = new Usuario (nombreUsuario, passwordUsuario, [])
+        arrayUsuarios.push(nuevoUsuario)
 
 }
 
